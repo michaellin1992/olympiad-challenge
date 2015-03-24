@@ -12,10 +12,10 @@ One placed on top of another would look like fig.3
 One placed behind the other would look like fig.4
 Now given two integers N and M on the first line with a NxM matrix following that represents how the Lego blocks are stacked, output the corresponding ascii illustration.
 Example input:
-3 4
-2 2 1 2
-2 2 1 1
-3 2 1 2
+3 4 /n
+2 2 1 2 /n
+2 2 1 1 /n
+3 2 1 2 /n
 Example output:
 fig.5
 

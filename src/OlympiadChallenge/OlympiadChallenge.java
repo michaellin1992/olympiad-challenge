@@ -14,6 +14,9 @@ public class OlympiadChallenge {
      * @return Prints out the ASCII art representation of this block scheme. 
      */
     public static void generateArt(int rows, int columns, String blockScheme) {
-        String[][] art = new String
+        int tallestBackTower = 
+        int matrixColumnSize = (columns*4)+1+(rows*2);
+        int matrixRowSize = (rows*2)+(tallestBackTower*3)+1;
+        String[][] art = new String[][];
     }
 }

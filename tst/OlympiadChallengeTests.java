@@ -33,6 +33,7 @@ public class OlympiadChallengeTests {
         System.out.println("..+---+\n./   /|\n+---+ |\n|   | +\n|   |/.\n+---+..");
         System.out.println("Program printed this picture:");
         olympiadChallenge.generateArt(3, 4, "2,2,1,2:2,2,1,1:3,2,1,2");
+        //olympiadChallenge.generateArt(2, 2, "2,2:2,2");
         System.err.println("test err");
         //Assert.assertEquals("Hi world!\n", outContent.toString());
     }

@@ -32,6 +32,8 @@ public class OlympiadChallenge {
                 System.out.println("towerHeight is: " + towerHeight);
                 artInProgress = fillTowerInMatrix(rowIndex, columnIndex, rows, columns,
                                                   towerHeight, artInProgress, blockScheme);
+                System.out.println("art so far is");
+                printArt(artInProgress);
             }
         }                      
         String[][] finishedArt = fillInBlanks(artInProgress);
@@ -67,47 +69,46 @@ public class OlympiadChallenge {
 
     private static String[][] fillTowerInMatrix(int towerRow, int towerColumn, int matrixRows, int matrixColumns,
                                          int towerHeight, String[][] matrixSoFar, String blockScheme) {
-        int rightOffset = matrixSoFar[0].length - (matrixRows * 2) - 1;
-        System.out.println("right offset is: " + rightOffset + " " + matrixSoFar.length + " " + matrixRows);
+        int leftOffset = (towerColumn * 4) + ((matrixRows - towerRow - 1)*2);
+        int vertOffset = (matrixSoFar.length - ((matrixRows - towerRow - 1) * 2));
+        System.out.println("left offset is: " + leftOffset + " " + matrixSoFar.length + " " + matrixRows);
+        System.out.println("vert offset is: " + vertOffset);
         for (int towerIndex = 0; towerIndex < towerHeight; towerIndex++) {
             System.out.println("in for loop");
             //Fill in bottom edge
             System.out.println("matrixRows: " + matrixRows);
             System.out.println("towerIndex: " + towerIndex);
-            matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 1][rightOffset] = CORNER;
-            matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 1][rightOffset - 1] = HORIZ_EDGE;
-            matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 1][rightOffset - 2] = HORIZ_EDGE;
-            matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 1][rightOffset - 3] = HORIZ_EDGE;
-            matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 1][rightOffset - 4] = CORNER;
+            matrixSoFar[vertOffset - (towerIndex * 3) - 1][leftOffset] = CORNER;
+            matrixSoFar[vertOffset - (towerIndex * 3) - 1][leftOffset + 1] = HORIZ_EDGE;
+            matrixSoFar[vertOffset - (towerIndex * 3) - 1][leftOffset + 2] = HORIZ_EDGE;
+            matrixSoFar[vertOffset - (towerIndex * 3) - 1][leftOffset + 3] = HORIZ_EDGE;
+            matrixSoFar[vertOffset - (towerIndex * 3) - 1][leftOffset + 4] = CORNER;
             //Fill in right then left edge
-            matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 2][rightOffset] = VERT_EDGE;
-            matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 3][rightOffset] = VERT_EDGE;
+            matrixSoFar[vertOffset - (towerIndex * 3) - 2][leftOffset] = VERT_EDGE;
+            matrixSoFar[vertOffset - (towerIndex * 3) - 3][leftOffset] = VERT_EDGE;
             
-            matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 2][rightOffset - 4] = VERT_EDGE;
-            matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 3][rightOffset - 4] = VERT_EDGE;
+            matrixSoFar[vertOffset - (towerIndex * 3) - 2][leftOffset + 4] = VERT_EDGE;
+            matrixSoFar[vertOffset - (towerIndex * 3) - 3][leftOffset + 4] = VERT_EDGE;
             //Fill in right side
-            if (!blockToRightExists(towerRow, towerColumn, towerHeight, matrixRows,
-                                   matrixColumns, blockScheme)) {
-                matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 2][rightOffset + 1] = INWARD_EDGE;
-                matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 3][rightOffset + 2] = CORNER;
-                matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 4][rightOffset + 2] = VERT_EDGE;
-                matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 5][rightOffset + 2] = VERT_EDGE;
-                matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 6][rightOffset + 2] = CORNER;
-                matrixSoFar[matrixSoFar.length - (towerIndex * 3) - 5][rightOffset + 1] = INWARD_EDGE;
-            }
+            matrixSoFar[vertOffset - (towerIndex * 3) - 2][leftOffset + 5] = INWARD_EDGE;
+            matrixSoFar[vertOffset - (towerIndex * 3) - 3][leftOffset + 6] = CORNER;
+            matrixSoFar[vertOffset - (towerIndex * 3) - 4][leftOffset + 6] = VERT_EDGE;
+            matrixSoFar[vertOffset - (towerIndex * 3) - 5][leftOffset + 6] = VERT_EDGE;
+            matrixSoFar[vertOffset - (towerIndex * 3) - 6][leftOffset + 6] = CORNER;
+            matrixSoFar[vertOffset - (towerIndex * 3) - 5][leftOffset + 5] = INWARD_EDGE;
         }
         //Fill in the top
-        matrixSoFar[((towerHeight - 1) * 3) + 2][rightOffset] = CORNER;
-        matrixSoFar[((towerHeight - 1) * 3) + 2][rightOffset-1] = HORIZ_EDGE;
-        matrixSoFar[((towerHeight - 1) * 3) + 2][rightOffset-2] = HORIZ_EDGE;
-        matrixSoFar[((towerHeight - 1) * 3) + 2][rightOffset-3] = HORIZ_EDGE;
-        matrixSoFar[((towerHeight - 1) * 3) + 2][rightOffset-4] = CORNER;
+        matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset] = CORNER;
+        matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset + 1] = HORIZ_EDGE;
+        matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset + 2] = HORIZ_EDGE;
+        matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset + 3] = HORIZ_EDGE;
+        matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset + 4] = CORNER;
 
-        matrixSoFar[((towerHeight - 1) * 3) + 1][rightOffset-3] = INWARD_EDGE;
-        matrixSoFar[((towerHeight - 1) * 3)][rightOffset-2] = CORNER;
-        matrixSoFar[((towerHeight - 1) * 3)][rightOffset-1] = HORIZ_EDGE;
-        matrixSoFar[((towerHeight - 1) * 3)][rightOffset] = HORIZ_EDGE;
-        matrixSoFar[((towerHeight - 1) * 3)][rightOffset+1] = HORIZ_EDGE;
+        matrixSoFar[vertOffset - (towerHeight * 3) - 2][leftOffset+1] = INWARD_EDGE;
+        matrixSoFar[vertOffset - (towerHeight * 3) - 3][leftOffset+2] = CORNER;
+        matrixSoFar[vertOffset - (towerHeight * 3) - 3][leftOffset+3] = HORIZ_EDGE;
+        matrixSoFar[vertOffset - (towerHeight * 3) - 3][leftOffset+4] = HORIZ_EDGE;
+        matrixSoFar[vertOffset - (towerHeight * 3) - 3][leftOffset+5] = HORIZ_EDGE;
         return matrixSoFar;
     }
 

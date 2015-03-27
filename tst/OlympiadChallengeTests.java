@@ -46,4 +46,19 @@ public class OlympiadChallengeTests {
         System.out.println("Program printed this picture:");
         olympiadChallenge.generateArt(3, 4, "2,2,1,2:2,2,1,1:3,2,1,2");
     }
+
+    @Test
+    public void testPyramid() {
+        System.out.println("Running Pyramid Test");
+        System.out.println("Program printed this picture:");
+        olympiadChallenge.generateArt(5, 5, "1,1,1,1,1:1,2,2,2,1:1,2,3,2,1:1,2,2,2,1:1,1,1,1,1");
+    }
+    
+    
+    @Test
+    public void testHoles() {
+        System.out.println("Running Holes Test");
+        System.out.println("Program printed this picture:");
+        olympiadChallenge.generateArt(5, 5, "1,1,1,1,0:1,2,2,2,1:1,2,3,2,0:1,2,2,2,1:1,1,0,1,1");
+    }
 }

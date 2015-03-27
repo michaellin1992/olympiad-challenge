@@ -16,16 +16,15 @@ public class OlympiadChallenge {
      * blockScheme = "1,1,1" means that the block scheme will have one row, with three columns,
      * with each column being one block tall. See the readme in the root directory for more info.
      *
-     * Note that we are going to use row major notation for everything in the matrix representation 
+     * Note that we are going to use row major notation for the matrix representation 
      * of the art. E.G. if we have a 2x2 matrix, (0, 0) represents the top left corner, (1, 0) represents
      * the bottom left corner, (0, 1) represents the top right, (1, 1) is the bottom right.
      *
      * @return Prints out the ASCII art representation of this block scheme. 
      */
     public static void generateArt(int rows, int columns, String blockScheme) {
-        int tallestBackTower = getTallestBackTower(blockScheme); 
         int matrixColumnSize = (columns*4)+1+(rows*2);
-        int matrixRowSize = (rows*2)+(tallestBackTower*3)+1;
+        int matrixRowSize = computeRows(rows, columns, blockScheme);
         String[][] artInProgress = new String[matrixRowSize][matrixColumnSize];
         for (int columnIndex = 0; columnIndex < columns; columnIndex++) {
             for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
@@ -39,17 +38,20 @@ public class OlympiadChallenge {
         printArt(finishedArt);
     }
 
-    private static int getTallestBackTower(String blockScheme) {
-        String[] backRow = blockScheme.split(":", 2);
-        String[] splitBackRow = backRow[0].split(",", Integer.MAX_VALUE);
-        int tallestTower = Integer.MIN_VALUE;
-        for (String oneTower : splitBackRow) {
-            int currentTower = Integer.parseInt(oneTower);
-            if (currentTower > tallestTower) {
-                tallestTower = currentTower;
+    private static int computeRows(int rows, int columns, String blockScheme) {
+        int maxSpaceTaken = Integer.MIN_VALUE;
+        String[] splitRows = blockScheme.split(":", rows);
+        for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < columns; columnIndex++) {
+                String[] currentRow = splitRows[rowIndex].split(",", columns);
+                int currentTowerHeight = Integer.parseInt(currentRow[columnIndex]);
+                int spaceTaken = (3 + (currentTowerHeight * 3)) + 2 * (rows - rowIndex - 1);
+                if (spaceTaken > maxSpaceTaken) {
+                    maxSpaceTaken = spaceTaken;
+                }
             }
         }
-        return tallestTower;
+        return maxSpaceTaken;
     }
 
     private static int getTowerHeight(int towerRow, int towerColumn, int numOfRows, int numOfColumns,
@@ -98,24 +100,23 @@ public class OlympiadChallenge {
             matrixSoFar[vertOffset - (towerIndex * 3) - 3][leftOffset + 5] = BLANK;
             matrixSoFar[vertOffset - (towerIndex * 3) - 4][leftOffset + 5] = BLANK;
 
+            //Fill in the top
+            matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset] = CORNER;
+            matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset + 1] = HORIZ_EDGE;
+            matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset + 2] = HORIZ_EDGE;
+            matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset + 3] = HORIZ_EDGE;
+            matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset + 4] = CORNER;
+            
+            matrixSoFar[vertOffset - (towerHeight * 3) - 2][leftOffset+1] = INWARD_EDGE;
+            matrixSoFar[vertOffset - (towerHeight * 3) - 3][leftOffset+2] = CORNER;
+            matrixSoFar[vertOffset - (towerHeight * 3) - 3][leftOffset+3] = HORIZ_EDGE;
+            matrixSoFar[vertOffset - (towerHeight * 3) - 3][leftOffset+4] = HORIZ_EDGE;
+            matrixSoFar[vertOffset - (towerHeight * 3) - 3][leftOffset+5] = HORIZ_EDGE;
+
+            matrixSoFar[vertOffset - (towerHeight * 3) - 2][leftOffset+2] = BLANK;
+            matrixSoFar[vertOffset - (towerHeight * 3) - 2][leftOffset+3] = BLANK;
+            matrixSoFar[vertOffset - (towerHeight * 3) - 2][leftOffset+4] = BLANK;
         }
-        //Fill in the top
-        matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset] = CORNER;
-        matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset + 1] = HORIZ_EDGE;
-        matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset + 2] = HORIZ_EDGE;
-        matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset + 3] = HORIZ_EDGE;
-        matrixSoFar[vertOffset - (towerHeight * 3) - 1][leftOffset + 4] = CORNER;
-
-        matrixSoFar[vertOffset - (towerHeight * 3) - 2][leftOffset+1] = INWARD_EDGE;
-        matrixSoFar[vertOffset - (towerHeight * 3) - 3][leftOffset+2] = CORNER;
-        matrixSoFar[vertOffset - (towerHeight * 3) - 3][leftOffset+3] = HORIZ_EDGE;
-        matrixSoFar[vertOffset - (towerHeight * 3) - 3][leftOffset+4] = HORIZ_EDGE;
-        matrixSoFar[vertOffset - (towerHeight * 3) - 3][leftOffset+5] = HORIZ_EDGE;
-
-        matrixSoFar[vertOffset - (towerHeight * 3) - 2][leftOffset+2] = BLANK;
-        matrixSoFar[vertOffset - (towerHeight * 3) - 2][leftOffset+3] = BLANK;
-        matrixSoFar[vertOffset - (towerHeight * 3) - 2][leftOffset+4] = BLANK;
-
         return matrixSoFar;
     }
 

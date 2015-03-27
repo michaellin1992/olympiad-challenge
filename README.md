@@ -1,7 +1,7 @@
 # olympiad-challenge
 An interesting coding challenge from a computing olympiad a few years ago that I thought I'd take a stab at. I attached relevant figures for this problem in a jpeg located in the root directory.
 
-I really encourage you to download the source and run "ant junit". It will print out all the pictures in the jpeg as well as some custom ASCII figure art that I made. I promise you that it  super neat :)
+I really encourage you to download the source and run "ant junit". It will print out all the pictures in the jpeg as well as some custom ASCII figure art that I made. I promise you that it looks super neat :)
 
 Problem text:
 

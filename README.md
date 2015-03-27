@@ -1,5 +1,5 @@
 # olympiad-challenge
-An interesting coding challenge from a computing olympiad a few years ago that I thought I'd take a stab at. I attached relevant figures for this problem in the root directory.
+An interesting coding challenge from a computing olympiad a few years ago that I thought I'd take a stab at. I attached relevant figures for this problem in a jpeg located in the root directory. You can verify that my solutions work by running the "ant junit" target which will print out all five of the figures in the jpeg.
 
 Problem text:
 

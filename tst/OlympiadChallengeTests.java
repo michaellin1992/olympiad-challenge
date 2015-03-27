@@ -74,4 +74,19 @@ public class OlympiadChallengeTests {
         System.out.println("Program printed this picture:");
         olympiadChallenge.generateArt(1, 17, "3,2,1,2,3,4,3,2,1,2,3,4,3,2,1,2,3");
     }
+
+    @Test
+    public void testXPyramid() {
+        System.out.println("Running X Pyramid Test");
+        System.out.println("Program printed this picture:");
+        olympiadChallenge.generateArt(5, 7, 
+                                      "0,0,0,1,0,0,0:0,0,0,2,0,0,0:0,1,2,3,2,1,0:0,0,0,2,0,0,0:0,0,0,1,0,0,0");
+    }
+
+    @Test
+    public void testCrucifix() {
+        System.out.println("Running Crucifix test");
+        System.out.println("Program printed this picture:");
+        olympiadChallenge.generateArt(6, 3, "0,1,0:1,1,1:0,1,0:0,1,0:0,1,0:0,1,0");
+    }
 }
